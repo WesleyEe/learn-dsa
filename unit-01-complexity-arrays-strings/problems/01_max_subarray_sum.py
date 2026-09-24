@@ -25,10 +25,35 @@ Your task:
        function.
 """
 
+# # The below solution has time complexity of O(n^2), as it relies on brute-force and has a nested for loop. 
+# # The space complexity is O(1).
+# def max_subarray_sum(nums: list[int]) -> int:
 
+#     max_sum = float('-inf')
+#     for idx in range(len(nums)): 
+
+#         curr_sum = nums[idx]
+
+#         if curr_sum > max_sum: 
+#             max_sum = curr_sum
+
+#         for idx2 in range(idx + 1, len(nums)):
+#             curr_sum += nums[idx2]
+
+#             if curr_sum > max_sum:
+#                 max_sum = curr_sum
+
+#     return max_sum
+
+# The optimal solution below has time complexity of O(n), and the space complexity is O(1).
 def max_subarray_sum(nums: list[int]) -> int:
-    # TODO: implement
-    pass
+    """Kadane's algorithm"""
+    best_ending_here = nums[0]
+    best_overall = nums[0]
+    for idx in range(1, len(nums)):
+        best_ending_here = max(nums[idx], best_ending_here + nums[idx])
+        best_overall = max(best_overall, best_ending_here)
+    return best_overall
 
 
 if __name__ == "__main__":
