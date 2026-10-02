@@ -23,11 +23,51 @@ Your task:
 
 
 def is_palindrome(s: str) -> bool:
-    # TODO: implement
-    pass
+
+    def is_alphanumeric(c):
+        return c.isascii() and c.isalnum()
+
+    # Handles edge case where s is an empty string
+    if len(s) == 0:
+        return True
+
+    # Idea here (O(n) time complexity and O(1) space complexity)
+    # Have a left pointer that starts from first idx and right pointer from the end idx
+    #
+    # Loop the below:
+    # Left pointer checks if alphanumeric, if no, move one idx down and check again until alphanumeric
+    # Right pointer checks if alphanumeric, if no, move one idx up and check again until alphanumeric
+    # Once both alphanumeric, compare. If not the same, return False. If the same, begin next loop iteration
+    # Once left pointer and right pointer idx meet, or cross each other, break loop and return True
+
+    left_ptr_idx = 0
+    right_ptr_idx = len(s) - 1
+
+    while left_ptr_idx < right_ptr_idx:
+
+        while not is_alphanumeric(s[left_ptr_idx]):
+            left_ptr_idx += 1
+            if left_ptr_idx > right_ptr_idx:
+                return True
+
+        while not is_alphanumeric(s[right_ptr_idx]):
+            right_ptr_idx -= 1
+            if right_ptr_idx < left_ptr_idx:
+                return True
+
+        # At this point, both ptr should have an alphanumeric character
+        # Else, keep going
+        if s[left_ptr_idx].lower() != s[right_ptr_idx].lower():
+            return False
+
+        left_ptr_idx += 1
+        right_ptr_idx -= 1
+
+    return True
 
 
 if __name__ == "__main__":
+    assert is_palindrome("   ") is True
     assert is_palindrome("A man, a plan, a canal: Panama") is True
     assert is_palindrome("race a car") is False
     assert is_palindrome(" ") is True
