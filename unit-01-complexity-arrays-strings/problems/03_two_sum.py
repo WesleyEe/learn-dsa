@@ -24,8 +24,18 @@ Your task:
 
 
 def two_sum(nums: list[int], target: int) -> list[int]:
-    # TODO: implement
-    pass
+    # The idea here
+    # Build up a dict of num to their idx as you iterate down the nums list
+    # For each num, you find out if the diff between the target and the num is already a key in the dict
+    # If yes, return the idx of the two nums
+    # If no, keep iterating
+    # The time complexity of the above solution is O(n) and the space complexity is O(n)
+    num_dict = {}
+    for idx in range(len(nums)):
+        diff = target - nums[idx]
+        if diff in num_dict:
+            return [num_dict[diff], idx]
+        num_dict[nums[idx]] = idx
 
 
 if __name__ == "__main__":
