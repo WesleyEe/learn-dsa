@@ -1,13 +1,13 @@
 # Progress Tracker
 
-**Current level:** Not yet certified (starting Level 0 / Level 1)
-**Current unit:** Unit 1 — Complexity, Arrays & Strings
+**Current level:** Level 1 in progress — Unit 1 complete
+**Current unit:** Unit 2 — Two Pointers & Sliding Window
 
 ## Level 0 — Foundations
-- [ ] Big-O & complexity analysis (taught in Unit 1 concepts.md)
+- [x] Big-O & complexity analysis (taught in Unit 1 concepts.md)
 
 ## Level 1 — Simple screening assessments
-- [ ] Unit 1 — Complexity, Arrays & Strings
+- [x] Unit 1 — Complexity, Arrays & Strings
 - [ ] Unit 2 — Two Pointers & Sliding Window
 - [ ] Unit 3 — Hash Maps & Sets
 - [ ] Unit 4 — Sorting & Binary Search
@@ -47,3 +47,17 @@
 
 ---
 *Log notes (dates, weak spots, things to revisit) go below as we go.*
+
+- **2026-10-07 — Unit 1 complete.** All 5 problems solved and verified
+  (fuzz-tested, not just sample asserts). Recurring pattern to watch:
+  stated complexity not matching actual code — happened 3x (`sum()`
+  inside a loop, a dead-but-harmless guard condition, and list slicing
+  `nums[1:]` silently costing O(n) space). Build the reflex: check every
+  line inside a loop for hidden O(n) work, and treat any `list[a:b]`
+  slice as a red flag for "am I copying when I meant to iterate by
+  index?" Checkpoint: set-based duplicate detection was clean; binary
+  search for insert-position had a real boundary-condition gap (narrowing
+  a 2-element range skipped straight past the "length 1" base case to
+  empty) — re-anchor on the `lo <= hi` / return `lo` idiom rather than
+  "subarray length" reasoning, and always use index pointers (`lo`,
+  `hi`) instead of literal slicing for binary search.
