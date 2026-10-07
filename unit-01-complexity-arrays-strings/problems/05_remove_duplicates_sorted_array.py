@@ -30,8 +30,20 @@ Your task:
 
 
 def remove_duplicates(nums: list[int]) -> int:
-    # TODO: implement, return k, and make nums[:k] correct in place
-    pass
+    # The time complexity of this soln is O(n) and space complexity is O(1)
+    curr_num = nums[0]
+    position_idx = 1
+    unique_items = 1
+
+    for idx in range(1, len(nums)):
+        num = nums[idx]
+        if num != curr_num:
+            nums[position_idx] = num
+            position_idx += 1
+            unique_items += 1
+            curr_num = num
+
+    return unique_items
 
 
 if __name__ == "__main__":
@@ -46,5 +58,9 @@ if __name__ == "__main__":
     nums3 = [1]
     k3 = remove_duplicates(nums3)
     assert k3 == 1 and nums3[:k3] == [1], (k3, nums3)
+
+    nums4 = [1, 2, 2, 2, 3, 3, 4]
+    k4 = remove_duplicates(nums4)
+    assert k4 == 4 and nums4[:k4] == [1, 2, 3, 4], (k2, nums4)
 
     print("All sample tests passed.")
