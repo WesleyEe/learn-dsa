@@ -25,9 +25,26 @@ Your task:
 """
 
 
+# The time complexity is O(n) and space complexity is O(1)
 def max_sum_fixed_window(nums: list[int], k: int) -> int:
-    # TODO: implement
-    pass
+    window_sum = 0
+    for idx in range(k):
+        window_sum += nums[idx]
+
+    max_sum = window_sum
+
+    left_ptr_idx = 0
+    right_ptr_idx = k
+
+    while right_ptr_idx < len(nums):
+        window_sum += nums[right_ptr_idx]
+        window_sum -= nums[left_ptr_idx]
+        if window_sum > max_sum:
+            max_sum = window_sum
+        left_ptr_idx += 1
+        right_ptr_idx += 1
+
+    return max_sum
 
 
 if __name__ == "__main__":
