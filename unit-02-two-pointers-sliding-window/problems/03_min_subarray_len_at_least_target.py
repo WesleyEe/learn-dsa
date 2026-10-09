@@ -34,9 +34,32 @@ Your task:
 """
 
 
+# This solution has time complexity of O(n) and space complexity of O(1)
 def min_subarray_len(nums: list[int], target: int) -> int:
-    # TODO: implement
-    pass
+    min_window_len = float("inf")
+    left_ptr_idx = 0
+    curr_window_sum = 0
+
+    for right_ptr_idx in range(len(nums)):
+        curr_window_sum += nums[right_ptr_idx]
+
+        if curr_window_sum >= target:
+            curr_window_len = right_ptr_idx - left_ptr_idx + 1
+
+            if curr_window_len == 1:
+                return 1
+
+            if curr_window_len < min_window_len:
+                min_window_len = curr_window_len
+
+            while curr_window_sum >= target:
+                curr_window_sum -= nums[left_ptr_idx]
+                left_ptr_idx += 1
+                curr_window_len = right_ptr_idx - left_ptr_idx + 1
+                if curr_window_sum >= target and curr_window_len < min_window_len:
+                    min_window_len = curr_window_len
+
+    return min_window_len if min_window_len != float("inf") else 0
 
 
 if __name__ == "__main__":
