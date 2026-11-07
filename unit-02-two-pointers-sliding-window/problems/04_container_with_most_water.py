@@ -33,9 +33,26 @@ Your task:
 """
 
 
+# Time complexity is O(n) and space complexity is O(1)
 def max_area(heights: list[int]) -> int:
-    # TODO: implement
-    pass
+    left_ptr_idx = 0
+    right_ptr_idx = len(heights) - 1
+
+    best = 0
+
+    while left_ptr_idx < right_ptr_idx:
+        curr = (right_ptr_idx - left_ptr_idx) * min(
+            heights[left_ptr_idx], heights[right_ptr_idx]
+        )
+        if curr > best:
+            best = curr
+
+        if heights[left_ptr_idx] <= heights[right_ptr_idx]:
+            left_ptr_idx += 1
+        else:
+            right_ptr_idx -= 1
+
+    return best
 
 
 if __name__ == "__main__":
