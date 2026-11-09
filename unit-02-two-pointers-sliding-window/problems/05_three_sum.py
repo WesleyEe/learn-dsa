@@ -31,8 +31,55 @@ Your task:
 
 
 def three_sum(nums: list[int]) -> list[list[int]]:
-    # TODO: implement
-    pass
+
+    # The idea here: Outer loop with closing window on remaining subarray
+    # If nums has len < 3, immediately return empty list
+    # Else, first sort the nums array in ascending order
+    # Fix the first num as the outer number, and do a closing window on the remaining subarr, trying to find a pair that equals to negative of outer number
+    # If such a pair is found, record and skip all duplicate values in that subarr
+    # After scanning the subarr, skip any duplicate outer number and move to the next non-duplicate outer number. Repeat scanning the new remaining subarr.
+    # End when the outer number is the 2nd last number of the array
+
+    triplets_sum_zero = []
+
+    if len(nums) < 3:
+        return triplets_sum_zero
+
+    sorted_nums = sorted(nums)
+
+    for idx in range(len(sorted_nums) - 2):
+
+        if idx > 0 and sorted_nums[idx] == sorted_nums[idx - 1]:
+            continue
+
+        outer_num = sorted_nums[idx]
+        window_left_idx = idx + 1
+        window_right_idx = len(sorted_nums) - 1
+
+        while window_left_idx < window_right_idx:
+            curr_left_value = sorted_nums[window_left_idx]
+            curr_right_value = sorted_nums[window_right_idx]
+
+            window_sum = curr_left_value + curr_right_value
+
+            if window_sum > -outer_num:
+                window_right_idx -= 1
+            elif window_sum < -outer_num:
+                window_left_idx += 1
+            # Once found the triplet that sums to zero
+            else:
+                triplets_sum_zero.append([outer_num, curr_left_value, curr_right_value])
+
+                while window_left_idx < window_right_idx:
+                    window_left_idx += 1
+                    window_right_idx -= 1
+
+                    if sorted_nums[window_left_idx] != curr_left_value:
+                        break
+                    if sorted_nums[window_right_idx] != curr_right_value:
+                        break
+
+    return triplets_sum_zero
 
 
 def _normalize(triplets):
