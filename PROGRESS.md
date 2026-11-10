@@ -1,14 +1,14 @@
 # Progress Tracker
 
-**Current level:** Level 1 in progress — Unit 1 complete
-**Current unit:** Unit 2 — Two Pointers & Sliding Window
+**Current level:** Level 1 in progress — Units 1-2 complete
+**Current unit:** Unit 3 — Hash Maps & Sets
 
 ## Level 0 — Foundations
 - [x] Big-O & complexity analysis (taught in Unit 1 concepts.md)
 
 ## Level 1 — Simple screening assessments
 - [x] Unit 1 — Complexity, Arrays & Strings
-- [ ] Unit 2 — Two Pointers & Sliding Window
+- [x] Unit 2 — Two Pointers & Sliding Window
 - [ ] Unit 3 — Hash Maps & Sets
 - [ ] Unit 4 — Sorting & Binary Search
 - [ ] Unit 5 — Basic Recursion
@@ -61,3 +61,23 @@
   empty) — re-anchor on the `lo <= hi` / return `lo` idiom rather than
   "subarray length" reasoning, and always use index pointers (`lo`,
   `hi`) instead of literal slicing for binary search.
+
+- **2026-11-10 — Unit 2 complete.** All 5 problems + 2 checkpoint
+  questions solved and fuzz-verified. Recurring bug pattern this unit:
+  **state going stale inside a loop** — happened repeatedly: a value
+  computed once before a loop but never recomputed after pointers moved
+  (review_qn_two's `sum_of_ptr`), a length/window-size computed using a
+  pointer *before* it was incremented instead of after (Problem 3's
+  first draft), and outer-loop termination relying on a side-effect
+  condition that doesn't fire every iteration (Problem 3's infinite
+  loop, fixed by switching to `for right in range(n)` instead of a
+  `while` keyed off `left`). General lesson: when a loop body recomputes
+  something from pointers/indices, double-check it's recomputed in the
+  same iteration those pointers changed, not reused from a stale value.
+  Also hit two correctness-via-missing-case bugs in Three Sum (duplicate
+  triplets from a repeated outer pivot, fixed with the standard
+  skip-adjacent-duplicate idiom) — good self-debugging there, correctly
+  reasoned that a hand-traced test with no duplicate values could never
+  have caught a duplicate-handling bug. Pattern recognition across the
+  checkpoint was solid: correctly ruled out sliding window once negative
+  values were introduced and reached for prefix-sum+hashmap instead.
