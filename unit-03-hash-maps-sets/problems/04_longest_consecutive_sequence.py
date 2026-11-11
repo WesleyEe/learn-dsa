@@ -32,9 +32,26 @@ Your task:
 """
 
 
+# The time complexity is O(n) and the worst-case space complexity is O(n)
 def longest_consecutive(nums: list[int]) -> int:
-    # TODO: implement
-    pass
+    set_nums = set(nums)
+
+    longest_run = 0
+
+    for num in set_nums:
+        if num - 1 not in set_nums:
+            # this is the start of a run
+            curr_run = 1
+            if curr_run > longest_run:
+                longest_run = curr_run
+            next_num = num + 1
+            while next_num in set_nums:
+                curr_run += 1
+                if curr_run > longest_run:
+                    longest_run = curr_run
+                next_num = next_num + 1
+
+    return longest_run
 
 
 if __name__ == "__main__":
