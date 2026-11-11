@@ -28,10 +28,25 @@ Your task:
        it's not free, and it happens once per string.)
 """
 
+from collections import defaultdict, Counter
 
+
+# This solution has a time complexity of O(n * k) and a worst case space complexity of O(n * k)
 def group_anagrams(strs: list[str]) -> list[list[str]]:
-    # TODO: implement
-    pass
+
+    # The idea here
+    # Init defaultdict(list)
+    # Go through each string
+    # Use Counter to convert the string into a dict, and use frozenset to convert that dict into a key
+    # Key should be the frozenset, append the string onto the value (which is a list)
+    # Use .values() on the defaultdict to get and return the result
+
+    dict_anagrams = defaultdict(list)
+    for string in strs:
+        key = frozenset(Counter(string).items())
+        dict_anagrams[key].append(string)
+
+    return list(dict_anagrams.values())
 
 
 def _normalize(groups):
@@ -39,9 +54,9 @@ def _normalize(groups):
 
 
 if __name__ == "__main__":
-    assert _normalize(group_anagrams(["eat", "tea", "tan", "ate", "nat", "bat"])) == _normalize(
-        [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
-    )
+    assert _normalize(
+        group_anagrams(["eat", "tea", "tan", "ate", "nat", "bat"])
+    ) == _normalize([["eat", "tea", "ate"], ["tan", "nat"], ["bat"]])
     assert group_anagrams([""]) == [[""]]
     assert group_anagrams(["a"]) == [["a"]]
     assert group_anagrams([]) == []
