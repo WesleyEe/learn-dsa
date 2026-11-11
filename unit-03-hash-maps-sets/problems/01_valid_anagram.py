@@ -28,10 +28,11 @@ Your task:
        bounded by alphabet size or not?)
 """
 
+from collections import Counter
+
 
 def is_anagram(s: str, t: str) -> bool:
-    # TODO: implement
-    pass
+    return Counter(s) == Counter(t)
 
 
 if __name__ == "__main__":
