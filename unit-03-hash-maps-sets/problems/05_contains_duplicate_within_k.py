@@ -32,9 +32,19 @@ Your task:
 """
 
 
+# The time complexity is O(n) and the worst case space complexity is O(n) if all nums are distinct
 def contains_nearby_duplicate(nums: list[int], k: int) -> bool:
-    # TODO: implement
-    pass
+
+    dict_duplicates = {}
+
+    for idx in range(len(nums)):
+        if nums[idx] in dict_duplicates:
+            if idx - k <= dict_duplicates[nums[idx]]:
+                return True
+
+        dict_duplicates[nums[idx]] = idx
+
+    return False
 
 
 if __name__ == "__main__":
