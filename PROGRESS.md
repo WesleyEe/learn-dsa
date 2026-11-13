@@ -1,7 +1,7 @@
 # Progress Tracker
 
-**Current level:** Level 1 in progress — Units 1-2 complete
-**Current unit:** Unit 3 — Hash Maps & Sets
+**Current level:** Level 1 in progress — Units 1-3 complete
+**Current unit:** Unit 4 — Sorting & Binary Search
 
 ## Level 0 — Foundations
 - [x] Big-O & complexity analysis (taught in Unit 1 concepts.md)
@@ -9,7 +9,7 @@
 ## Level 1 — Simple screening assessments
 - [x] Unit 1 — Complexity, Arrays & Strings
 - [x] Unit 2 — Two Pointers & Sliding Window
-- [ ] Unit 3 — Hash Maps & Sets
+- [x] Unit 3 — Hash Maps & Sets
 - [ ] Unit 4 — Sorting & Binary Search
 - [ ] Unit 5 — Basic Recursion
 - [ ] **Level 1 review checkpoint**
@@ -81,3 +81,22 @@
   have caught a duplicate-handling bug. Pattern recognition across the
   checkpoint was solid: correctly ruled out sliding window once negative
   values were introduced and reached for prefix-sum+hashmap instead.
+
+- **2026-11-12 — Unit 3 complete.** All 5 problems + 3 checkpoint
+  questions solved and fuzz-verified. No real correctness bugs this unit
+  (a first for the course) — issues were all style/precision: redundant
+  `if/return True/return False` patterns collapsible to a direct return,
+  a `defaultdict(int)` used where a plain `dict` sufficed, duplicated
+  assignment logic across `if/else` branches collapsible to one line
+  after the branch, and repeated complexity-comment imprecision (writing
+  O(n) when the true bound was O(d) for distinct elements, or inventing
+  an undefined variable like O(j) instead of stating the bound
+  concretely). Checkpoint went well on use-case recognition (frequency
+  vs. membership vs. grouping) but the check-before-insert-vs-insert-
+  before-check ordering question (Q3, pair-sum with duplicates) was left
+  unanswered when moving on — this exact ordering subtlety has now
+  surfaced 3 times across Units 2-3 (review_qn_one, Problem 5, this
+  checkpoint). Explicitly re-drill this before Level 1 checkpoint: when
+  using a hashmap to find a complement/pair within one pass, always
+  check membership *before* inserting the current element, so an element
+  never matches against itself.
