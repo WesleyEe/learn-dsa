@@ -21,7 +21,23 @@ Your task:
 
 
 def binary_search(nums: list[int], target: int) -> int:
-    pass
+
+    # Ensure this is correct for zero or single element lists
+    # Time complexity is O(logn) and space complexity is O(1)
+
+    lo, hi = 0, len(nums) - 1
+
+    while lo <= hi:
+        mid = (lo + hi) // 2
+
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            lo = mid + 1
+        else:  # nums[mid] > target
+            hi = mid - 1
+
+    return -1
 
 
 if __name__ == "__main__":
