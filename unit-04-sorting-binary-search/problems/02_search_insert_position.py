@@ -26,7 +26,22 @@ Your task:
 
 
 def search_insert(nums: list[int], target: int) -> int:
-    pass
+    # Check to ensure soln handles zero and single num lists correctly
+    # Time complexity is O(log n) and space complexity is O(1)
+
+    lo, hi = 0, len(nums) - 1
+
+    while lo <= hi:
+        mid = (lo + hi) // 2
+
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+
+    return lo
 
 
 if __name__ == "__main__":
