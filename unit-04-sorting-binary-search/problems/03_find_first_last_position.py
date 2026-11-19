@@ -28,8 +28,39 @@ Your task:
 """
 
 
+# Time complexity is O(log n) and space complexity is O(1)
 def find_first_last(nums: list[int], target: int) -> list[int]:
-    pass
+
+    def find_extreme_idx(nums, target, find_leftmost):
+        lo, hi = 0, len(nums) - 1
+        found = False
+
+        while lo <= hi:
+            mid = (lo + hi) // 2
+
+            if nums[mid] == target:
+                found = True
+                extreme = mid
+
+                if find_leftmost:
+                    hi = mid - 1
+                else:
+                    lo = mid + 1
+
+            elif nums[mid] < target:
+                lo = mid + 1
+            else:
+                hi = mid - 1
+
+        if found:
+            return extreme
+        else:
+            return -1
+
+    left = find_extreme_idx(nums, target, True)
+    right = find_extreme_idx(nums, target, False)
+
+    return [left, right]
 
 
 if __name__ == "__main__":
