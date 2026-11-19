@@ -28,8 +28,35 @@ Your task:
 """
 
 
+# Time complexity is O(log n) and space complexity is O(1)
 def search_rotated(nums: list[int], target: int) -> int:
-    pass
+
+    lo, hi = 0, len(nums) - 1
+
+    while lo <= hi:
+        mid = (lo + hi) // 2
+
+        if nums[mid] == target:
+            return mid
+
+        else:
+            if nums[lo] <= nums[mid]:  # left subarr is sorted
+                if (
+                    nums[lo] <= target and target <= nums[mid]
+                ):  # left subarr could contain the target
+                    hi = mid - 1
+                else:  # investigate the right subarr
+                    lo = mid + 1
+
+            else:  # right subarr is sorted
+                if (
+                    nums[mid + 1] <= target and target <= nums[hi]
+                ):  # right subarr could contain the target
+                    lo = mid + 1
+                else:  # investigate the left subarr
+                    hi = mid - 1
+
+    return -1
 
 
 if __name__ == "__main__":
